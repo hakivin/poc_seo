@@ -35,8 +35,6 @@ class GithubDetailComponentState extends State<GithubDetailComponent>
         }),
         // We need to set constraints as the flutter view cannot dynamically size itself.
         constraints: ViewConstraints(
-          // minWidth: 300,
-          // minHeight: 300,
           maxWidth: double.infinity,
           maxHeight: double.infinity,
         ),
@@ -49,10 +47,6 @@ class GithubDetailComponentState extends State<GithubDetailComponent>
         ),
       ),
     ]);
-    // yield FlutterEmbedView(
-    //   // provide your flutter app widget
-    //   widget: github.RepoListScreen(),
-    // );
   }
 
   @override
@@ -78,7 +72,9 @@ Future<Document> fetchRepoDetails(String owner, String repoName) async {
       title: repoName,
       meta: {
         "description": repoDetails['description'] ?? 'No Description',
-        "og:title": repoName
+        "og:title": repoName,
+        "og:image": "https://opengraph.githubassets.com/e12142122b71e8609499abe7afb63edd6c1fde47a204e0a2771c68c892fa8732/hakivin/space-evader",
+        "twitter:image": "https://opengraph.githubassets.com/e12142122b71e8609499abe7afb63edd6c1fde47a204e0a2771c68c892fa8732/hakivin/space-evader",
       },
     );
   } else {

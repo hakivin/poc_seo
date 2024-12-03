@@ -22,6 +22,7 @@ class GitHubRepoApp extends StatelessWidget {
 
 class RepoListScreen extends StatefulWidget {
   final void Function(String repoName)? onRepoTap;
+
   const RepoListScreen({super.key, this.onRepoTap});
 
   @override
@@ -97,8 +98,11 @@ class RepoDetailScreen extends StatefulWidget {
   final String owner;
   final String repoName;
 
-  const RepoDetailScreen(
-      {super.key, required this.owner, required this.repoName});
+  const RepoDetailScreen({
+    super.key,
+    required this.owner,
+    required this.repoName,
+  });
 
   @override
   RepoDetailScreenState createState() => RepoDetailScreenState();
@@ -143,8 +147,8 @@ class RepoDetailScreenState extends State<RepoDetailScreen> {
                 child: CircularProgressIndicator(),
               )
             : Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Text('Description:',
@@ -159,7 +163,7 @@ class RepoDetailScreenState extends State<RepoDetailScreen> {
                     Text('Default Branch: ${repoDetails?['default_branch']}'),
                   ],
                 ),
-            ),
+              ),
       ),
     );
   }

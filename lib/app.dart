@@ -1,6 +1,7 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr_router/jaspr_router.dart';
 import 'package:poc_seo/pages/repo.dart';
+import 'components/github_detail_component.imports.dart' deferred as github;
 
 import 'pages/about.dart';
 import 'pages/home.dart';
@@ -55,13 +56,14 @@ class AppState extends State<App> {
               path: '/about',
               title: 'About',
               builder: (context, state) => const About()),
-          Route(
-              path: '/repos/:repoId',
-              title: 'Repositories',
-              builder: (context, state) {
-                final repoName = state.params['repoId'] ?? '';
-                return Repo(repoName: repoName);
-              }),
+          Route.lazy(
+            path: '/repos/:repoId',
+            builder: (context, state) {
+              final repoName = state.params['repoId'] ?? '';
+              return Repo(repoName: repoName);
+            },
+            load: github.loadLibrary,
+          ),
         ],
       ),
     ]);
