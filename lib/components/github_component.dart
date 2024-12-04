@@ -4,7 +4,7 @@ import 'package:jaspr_router/jaspr_router.dart';
 
 // The flutter widget is only imported on the web (as the server cannot import flutter)
 // and is imported as a deferred library, to not block hydration of the remaining website.
-@Import.onWeb('../widgets/github.dart', show: [#RepoListScreen])
+@Import.onWeb('../widgets/github_list.dart', show: [#RepoListScreen])
 import 'github_component.imports.dart' deferred as github;
 
 class GithubComponent extends StatelessComponent {

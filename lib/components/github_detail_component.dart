@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 
 // The flutter widget is only imported on the web (as the server cannot import flutter)
 // and is imported as a deferred library, to not block hydration of the remaining website.
-@Import.onWeb('../widgets/github.dart', show: [#RepoDetailScreen])
+@Import.onWeb('../widgets/github_detail.dart', show: [#RepoDetailScreen])
 import 'github_detail_component.imports.dart' deferred as github;
 
 const token =
