@@ -68,13 +68,21 @@ Future<Document> fetchRepoDetails(String owner, String repoName) async {
   final repoDetails = json.decode(response.body);
 
   if (response.statusCode == 200) {
+    const url =
+        "https://www.sierrainteractive.com/wp-content/uploads/2024/10/Image-Placeholder-1200x630-1.jpg";
     return Document.head(
       title: repoName,
       meta: {
         "description": repoDetails['description'] ?? 'No Description',
+        "og:description": repoDetails['description'] ?? 'No Description',
+        "og:url": "http://localhost:8080",
+        "og:type": "website",
+        "og:site_name": "Github Repos",
         "og:title": repoName,
-        "og:image": "https://opengraph.githubassets.com/e12142122b71e8609499abe7afb63edd6c1fde47a204e0a2771c68c892fa8732/hakivin/space-evader",
-        "twitter:image": "https://opengraph.githubassets.com/e12142122b71e8609499abe7afb63edd6c1fde47a204e0a2771c68c892fa8732/hakivin/space-evader",
+        "og:image": url,
+        "twitter:image": url,
+        "twitter:card": "summary",
+        "hostname": "Github Repos",
       },
     );
   } else {
