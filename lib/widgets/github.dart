@@ -5,21 +5,6 @@ import 'dart:convert';
 const token =
     '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';
 
-class GitHubRepoApp extends StatelessWidget {
-  const GitHubRepoApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'GitHub Repos',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const RepoListScreen(),
-    );
-  }
-}
-
 class RepoListScreen extends StatefulWidget {
   final void Function(String repoName)? onRepoTap;
 
@@ -32,7 +17,6 @@ class RepoListScreen extends StatefulWidget {
 class RepoListScreenState extends State<RepoListScreen> {
   final String username = 'flutter'; // Replace with any GitHub username
   List<dynamic> repos = [];
-  List<Widget> repoList = [];
   bool isLoading = true;
 
   @override
@@ -55,39 +39,43 @@ class RepoListScreenState extends State<RepoListScreen> {
       setState(() {
         repos = json.decode(response.body);
         isLoading = false;
-        repoList = _generateList();
       });
     } else {
       throw Exception('Failed to load repos');
     }
   }
 
-  List<Widget> _generateList() {
-    final repoList = <Widget>[];
-    for (var repo in repos) {
-      final repoName = repo['name'];
-      final text = GestureDetector(
-        onTap: () => widget.onRepoTap?.call(repoName),
-        child: Text(repoName),
-      );
-      repoList.add(text);
-    }
-    return repoList;
-  }
-
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Material(
-        shape: RoundedRectangleBorder(
-          side: const BorderSide(color: Color(0xFF01589B)),
-          borderRadius: BorderRadius.circular(10),
-        ),
-        child: SingleChildScrollView(
-          child: Column(
-            children: repoList,
+    return ConstrainedBox(
+      constraints: BoxConstraints(
+        maxWidth: MediaQuery.sizeOf(context).width * 0.3,
+        maxHeight: MediaQuery.sizeOf(context).height,
+      ),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: Scaffold(
+          appBar: AppBar(
+            title: const Text('GitHub Repos'),
           ),
+          body: isLoading
+              ? const Center(child: CircularProgressIndicator())
+              : ListView.builder(
+                  itemCount: repos.length,
+                  itemBuilder: (context, index) {
+                    final repo = repos[index];
+                    return Card(
+                      margin: const EdgeInsets.symmetric(
+                          vertical: 8.0, horizontal: 16.0),
+                      child: ListTile(
+                        title: Text(repo['name']),
+                        subtitle: Text(repo['description'] ?? 'No description'),
+                        trailing: const Icon(Icons.arrow_forward),
+                        onTap: () => widget.onRepoTap?.call(repo['name']),
+                      ),
+                    );
+                  },
+                ),
         ),
       ),
     );
@@ -139,31 +127,72 @@ class RepoDetailScreenState extends State<RepoDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Material(
-        child: isLoading
-            ? const Center(
-                child: CircularProgressIndicator(),
-              )
-            : Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text('Description:',
-                        style: TextStyle(fontWeight: FontWeight.bold)),
-                    Text(repoDetails?['description'] ?? 'No description'),
-                    const SizedBox(height: 16.0),
-                    Text('Stars: ${repoDetails?['stargazers_count']}'),
-                    Text('Forks: ${repoDetails?['forks_count']}'),
-                    Text('Language: ${repoDetails?['language'] ?? 'N/A'}'),
-                    Text('Open Issues: ${repoDetails?['open_issues_count']}'),
-                    Text('Watchers: ${repoDetails?['watchers_count']}'),
-                    Text('Default Branch: ${repoDetails?['default_branch']}'),
-                  ],
+    return ConstrainedBox(
+      constraints: BoxConstraints(
+        maxWidth: MediaQuery.sizeOf(context).width * 0.3,
+        maxHeight: MediaQuery.sizeOf(context).height,
+      ),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: Scaffold(
+          appBar: AppBar(
+            title: Text(widget.repoName),
+          ),
+          body: isLoading
+              ? const Center(child: CircularProgressIndicator())
+              : SingleChildScrollView(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'Description:',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                        ),
+                      ),
+                      const SizedBox(height: 8.0),
+                      Text(
+                        repoDetails?['description'] ?? 'No description',
+                        style: const TextStyle(fontSize: 16),
+                      ),
+                      const Divider(height: 32.0),
+                      _buildInfoRow('Stars', repoDetails?['stargazers_count']),
+                      _buildInfoRow('Forks', repoDetails?['forks_count']),
+                      _buildInfoRow(
+                          'Language', repoDetails?['language'] ?? 'N/A'),
+                      _buildInfoRow(
+                          'Open Issues', repoDetails?['open_issues_count']),
+                      _buildInfoRow('Watchers', repoDetails?['watchers_count']),
+                      _buildInfoRow(
+                          'Default Branch', repoDetails?['default_branch']),
+                    ],
+                  ),
                 ),
-              ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildInfoRow(String label, dynamic value) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 4.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            label,
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 16,
+            ),
+          ),
+          Text(
+            '$value',
+            style: const TextStyle(fontSize: 16),
+          ),
+        ],
       ),
     );
   }
