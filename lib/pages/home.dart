@@ -1,5 +1,5 @@
 import 'package:jaspr/jaspr.dart';
-import 'package:poc_seo/components/github_component.dart';
+import '../components/github_component.dart';
 
 class Home extends StatelessComponent {
   const Home({super.key});

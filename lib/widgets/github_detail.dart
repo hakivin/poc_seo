@@ -2,16 +2,19 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:poc_seo/widgets/utils.dart';
 
 import 'github_list.dart';
+import 'utils.dart';
 
 class RepoDetailScreen extends StatefulWidget {
   final String owner;
   final String repoName;
 
-  const RepoDetailScreen(
-      {super.key, required this.owner, required this.repoName});
+  const RepoDetailScreen({
+    super.key,
+    required this.owner,
+    required this.repoName,
+  });
 
   @override
   RepoDetailScreenState createState() => RepoDetailScreenState();
@@ -30,7 +33,8 @@ class RepoDetailScreenState extends State<RepoDetailScreen> {
   Future<void> fetchRepoDetails() async {
     final response = await http.get(
       Uri.parse(
-          'https://api.github.com/repos/${widget.owner}/${widget.repoName}'),
+        'https://api.github.com/repos/${widget.owner}/${widget.repoName}',
+      ),
       headers: {
         'Authorization': 'token $token',
       },
@@ -108,12 +112,18 @@ class RepoDetailScreenState extends State<RepoDetailScreen> {
                     _buildInfoRow('Stars', repoDetails?['stargazers_count']),
                     _buildInfoRow('Forks', repoDetails?['forks_count']),
                     _buildInfoRow(
-                        'Language', repoDetails?['language'] ?? 'N/A'),
+                      'Language',
+                      repoDetails?['language'] ?? 'N/A',
+                    ),
                     _buildInfoRow(
-                        'Open Issues', repoDetails?['open_issues_count']),
+                      'Open Issues',
+                      repoDetails?['open_issues_count'],
+                    ),
                     _buildInfoRow('Watchers', repoDetails?['watchers_count']),
                     _buildInfoRow(
-                        'Default Branch', repoDetails?['default_branch']),
+                      'Default Branch',
+                      repoDetails?['default_branch'],
+                    ),
                   ],
                 ),
               ),

@@ -9,6 +9,7 @@ import 'github_component.imports.dart' deferred as github;
 
 class GithubComponent extends StatelessComponent {
   const GithubComponent({super.key});
+
   @override
   Iterable<Component> build(BuildContext context) sync* {
     yield section([
@@ -20,8 +21,8 @@ class GithubComponent extends StatelessComponent {
         }),
         // We need to set constraints as the flutter view cannot dynamically size itself.
         constraints: ViewConstraints(
-            maxWidth: double.infinity,
-            maxHeight: double.infinity
+          maxWidth: double.infinity,
+          maxHeight: double.infinity,
         ),
         // The [FlutterEmbedView.deferred] component will take care of loading
         // the widget and initializing flutter.

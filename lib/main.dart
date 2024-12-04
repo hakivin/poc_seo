@@ -43,7 +43,7 @@ void main() {
       head: [
         // The generated flutter manifest and bootstrap script.
         link(rel: 'manifest', href: 'manifest.json'),
-        script(src: "flutter_bootstrap.js", async: true, []),
+        script(src: 'flutter_bootstrap.js', async: true, []),
       ],
       body: const App(),
     ),

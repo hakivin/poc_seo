@@ -1,8 +1,8 @@
-import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-import 'package:poc_seo/widgets/utils.dart';
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'utils.dart';
 
 const token =
     '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';
@@ -62,7 +62,9 @@ class RepoListScreenState extends State<RepoListScreen> {
                   final repo = repos[index];
                   return Card(
                     margin: const EdgeInsets.symmetric(
-                        vertical: 8.0, horizontal: 16.0),
+                      vertical: 8.0,
+                      horizontal: 16.0,
+                    ),
                     child: ListTile(
                       title: Text(repo['name']),
                       subtitle: Text(repo['description'] ?? 'No description'),

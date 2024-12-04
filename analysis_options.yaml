@@ -14,20 +14,39 @@
 include: package:flutter_lints/flutter.yaml
 
 analyzer:
+  exclude:
+    - "**/jaspr_options.dart"
   # Jaspr has a custom lint package 'jaspr_lints', which needs the 'custom_lint' analyzer plugin.
   #
   # Unfortunately, running 'dart analyze' does not pick up the custom lints. Instead, you need to
   # run a separate command for this: `jaspr analyze`
   plugins:
     - custom_lint
-#   exclude:
-#     - path/to/excluded/files/**
 
 # Uncomment the following section to enable or disable additional rules.
 
-# linter:
-#   rules:
-#     camel_case_types: true
+linter:
+  # The lint rules applied to this project can be customized in the
+  # section below to disable rules from the `package:flutter_lints/flutter.yaml`
+  # included above or to enable additional rules. A list of all available lints
+  # and their documentation is published at
+  # https://dart-lang.github.io/linter/lints/index.html.
+  #
+  # Instead of disabling a lint rule for the entire project in the
+  # section below, it can also be suppressed for a single line of code
+  # or a specific dart file by using the `// ignore: name_of_lint` and
+  # `// ignore_for_file: name_of_lint` syntax on the line or in the file
+  # producing the lint.
+  rules:
+    require_trailing_commas: true
+    prefer_relative_imports: true
+    directives_ordering: true
+    always_declare_return_types: true
+    implementation_imports: false
+    prefer_single_quotes: true
+    dangling_library_doc_comments: false
+    # avoid_print: false  # Uncomment to disable the `avoid_print` rule
+
 
 # For controlling Jaspr specific lint rules, we need a slightly different config.
 
