@@ -6,10 +6,9 @@ import 'package:jaspr_flutter_embed/jaspr_flutter_embed.dart';
 
 // The flutter widget is only imported on the web (as the server cannot import flutter)
 // and is imported as a deferred library, to not block hydration of the remaining website.
+import '../constants/env.dart';
 @Import.onWeb('../widgets/github_detail.dart', show: [#RepoDetailScreen])
 import 'github_detail_component.imports.dart' deferred as github;
-
-const token = 'your_github_token';
 
 class GithubDetailComponent extends StatefulComponent {
   final String repoName;
@@ -31,7 +30,7 @@ class GithubDetailComponentState extends State<GithubDetailComponent>
       FlutterEmbedView.deferred(
         styles: const Styles.raw({
           'height': '100vh',
-          'width': '30vw',
+          'width': '56vh',
         }),
         // We need to set constraints as the flutter view cannot dynamically size itself.
         constraints: ViewConstraints(
@@ -56,6 +55,7 @@ class GithubDetailComponentState extends State<GithubDetailComponent>
 }
 
 Future<Document> fetchRepoDetails(String owner, String repoName) async {
+  final token = Env.apiKey;
   final response = await http.get(
     Uri.parse(
       'https://api.github.com/repos/$owner/$repoName',

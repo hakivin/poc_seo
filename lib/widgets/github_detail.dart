@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
+import '../constants/env.dart';
 import 'github_list.dart';
 import 'utils.dart';
 
@@ -31,6 +32,7 @@ class RepoDetailScreenState extends State<RepoDetailScreen> {
   }
 
   Future<void> fetchRepoDetails() async {
+    final token = Env.apiKey;
     final response = await http.get(
       Uri.parse(
         'https://api.github.com/repos/${widget.owner}/${widget.repoName}',

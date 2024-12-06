@@ -17,7 +17,7 @@ class GithubComponent extends StatelessComponent {
       FlutterEmbedView.deferred(
         styles: const Styles.raw({
           'height': '100vh',
-          'width': '30vw',
+          'width': '56vh',
         }),
         // We need to set constraints as the flutter view cannot dynamically size itself.
         constraints: ViewConstraints(

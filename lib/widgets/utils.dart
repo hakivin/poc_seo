@@ -9,7 +9,7 @@ class WidgetWrapper extends StatelessWidget {
   Widget build(BuildContext context) {
     return ConstrainedBox(
       constraints: BoxConstraints(
-        maxWidth: MediaQuery.sizeOf(context).width * 0.3,
+        maxWidth: MediaQuery.sizeOf(context).height * 0.56,
         maxHeight: MediaQuery.sizeOf(context).height,
       ),
       child: MaterialApp(
