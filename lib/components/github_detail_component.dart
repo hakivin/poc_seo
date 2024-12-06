@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr_flutter_embed/jaspr_flutter_embed.dart';
+import 'package:jaspr_router/jaspr_router.dart';
 
 // The flutter widget is only imported on the web (as the server cannot import flutter)
 // and is imported as a deferred library, to not block hydration of the remaining website.
@@ -43,6 +44,7 @@ class GithubDetailComponentState extends State<GithubDetailComponent>
         builder: () => github.RepoDetailScreen(
           owner: 'flutter',
           repoName: component.repoName,
+          onBack: () => context.push('/'),
         ),
       ),
     ]);

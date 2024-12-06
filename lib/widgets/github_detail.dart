@@ -4,17 +4,18 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 import '../constants/env.dart';
-import 'github_list.dart';
 import 'utils.dart';
 
 class RepoDetailScreen extends StatefulWidget {
   final String owner;
   final String repoName;
+  final void Function() onBack;
 
   const RepoDetailScreen({
     super.key,
     required this.owner,
     required this.repoName,
+    required this.onBack,
   });
 
   @override
@@ -88,6 +89,9 @@ class RepoDetailScreenState extends State<RepoDetailScreen> {
     return WidgetWrapper(
       child: Scaffold(
         appBar: AppBar(
+          leading: BackButton(
+            onPressed: widget.onBack,
+          ),
           title: Text(widget.repoName),
         ),
         body: isLoading
