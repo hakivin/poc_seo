@@ -4,8 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'utils.dart';
 
-const token =
-    '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';
+const token = 'your_github_token';
 
 class RepoListScreen extends StatefulWidget {
   final void Function(String repoName)? onRepoTap;
